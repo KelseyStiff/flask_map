@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>National Parks Finder</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+<style>
+#map {width: 500px; height: 500px; }
+</style>
+</head>
+
+<body>
+	<form class="form" action="/test" method="GET">
+		<label for="states">What State would you like to search?</label>
+		<select name="states" id="states" class="form-control">
+			{% for s in state %}
+			<option value="state">{{ s }}</option>
+			{% endfor %}
+		</select>
+		
+		<label for="months">When are you going?</label>
+		<select name="months" id="months" class="form-control">
+			{% for m in month %}
+			<option value="month">{{ m }}</option>
+			{% endfor %}
+		</select>
+		<button type="button" id="search-button">SEARCH</button>
+	</form>
+	<div id="map">
+	</div>
+
+<script>
+
+	let searchButton = document.getElementById('search-button')
+    // set center of map
+	let map_center = [-98.5795,39.8283] //lat then long
+
+	let state_input = document.getElementById(states)
+	let month_input = document.getElementById(months)
+	let center_longlat = []
+	let center = "{{ state_center }}"
+	let park_list = "{{ parks }}"
+	
+	console.log(center['state'])
+
+	searchButton.addEventListener('click', function(){
+		console.log(park_list)
+	})
+
+
+	// findCenter(state_input,month_input,centers)
+
+		// map.flyTo({
+		// 	center: [
+		// 		center_longlat
+		// 	]
+		// })
+
+    //retrieve key from app.py
+	mapboxgl.accessToken = "{{ key }}"
+
+	map = new mapboxgl.Map({
+	container: 'map', // container id
+	style: 'mapbox://styles/mapbox/streets-v11', // style URL
+	center: map_center, // starting position [lng, lat]
+	zoom: 3.5 // starting zoom
+	});
+
+
+
+
+
+
+	// bridges.forEach(function (bridge){
+	// 	let popupText = `${bridge.name} <br> ${bridge.city}, ${bridge.state} <br> ${bridge.span} Meters long`
+	// 	let marker = new mapboxgl.Marker()
+	// 		.setLngLat(bridge.location)
+	// 		.setPopup(new mapboxgl.Popup().setHTML(popupText))
+	// 		.addTo(map)
+	// })
+
+		// bridges = [
+    // {"name": "Verrazano-Narrows Bridge", "city": "New York", "state": "NY", "span": 1298.4, "location": [-74.0447,40.6066]},
+    // {"name":"Mackinac Bridge","city":"Mackinaw and St Ignance","state":"MI","span":1158.0, "location":[-84.7278,45.8174]},
+    // {"name":"George Washington Bridge","city":"New York","state":"NY","span":1067.0, "location":[-73.9527,40.8517]}
+	// ]
+
+
+</script>
+</body>
+</html>
